@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Website Hosting - FixzzModss</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Background video */
+    .video-bg {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+      object-fit: cover;
+    }
+
+    /* Overlay agar teks lebih mudah dibaca */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      background-color: #ffffff;
+      color: #1d2b64;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #eaeaea;
+    }
+
+    nav {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop class="video-bg">
+    <source src="https://files.catbox.moe/q29ze7.mp4" type="video/mp4">
+    Browser Anda tidak mendukung video HTML5.
+  </video>
+
+  <!-- Overlay gelap -->
+  <div class="overlay"></div>
+
+  <!-- Navigasi -->
+  <nav>
+    <a href="FixzzModzz.html">Kontak</a>
+    <a href="produk.html">Produk</a>
+    <a href="payment.html">Paymet</a>
+  </nav>
+
+  <!-- Konten -->
+  <div class="content">
+    <h1>FixzzModzz </h1>
+    <p>Melayani Sell Bot Whasapp Dll</p>
+    <button class="btn" onclick="location.href='produk.html'">Lihat Produk</button>
+  </div>
+  
+
+</body>
+</html>
