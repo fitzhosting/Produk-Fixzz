@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Pembayaran Digital</title>
+    <title>Pembayaran Digital</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -12,36 +11,60 @@
             --gopay: #00a650;
             --ovo: #4c2a86;
             --qris: #ff6b00;
+            --primary: #4361ee;
             --bg: #f8f9fa;
         }
         
         body {
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             max-width: 650px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0;
             background-color: var(--bg);
             color: #333;
         }
         
-        .header {
+        .welcome-section {
             text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: white;
+            border-radius: 0 0 20px 20px;
             margin-bottom: 30px;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .header h1 {
+        .welcome-section h1 {
             font-size: 2.2rem;
-            margin: 0;
-            color: #2c3e50;
+            margin: 0 0 10px 0;
         }
         
-        .header p {
-            color: #7f8c8d;
+        .welcome-section p {
             font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .start-payment-btn {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .start-payment-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0,0,0,0.3);
+        }
+        
+        .payment-section {
+            padding: 0 20px;
+            display: none; /* Awalnya disembunyikan */
         }
         
         .payment-method {
@@ -139,9 +162,11 @@
         
         .footer {
             text-align: center;
-            margin-top: 30px;
+            margin: 30px 20px;
             color: #7f8c8d;
             font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
         }
         
         @keyframes fadeIn {
@@ -160,83 +185,97 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1><i class="fas fa-wallet"></i> Pembayaran Digital</h1>
-        <p>Pilih metode pembayaran yang Anda inginkan</p>
-    </div>
-    
-    <!-- DANA -->
-    <div class="payment-method dana">
-        <h3 class="payment-title">
-            <img src="https://files.catbox.moe/gdna19.jpeg" alt="DANA" class="payment-logo">
-            DANA
-        </h3>
-        <p>Transfer ke nomor DANA berikut:</p>
-        <div class="payment-number-container">
-            <span class="payment-number" id="dana-number">085609092154</span>
-            <button class="copy-btn" onclick="salinNomor('dana-number')">
-                <i class="far fa-copy"></i> Salin
-            </button>
-        </div>
-        <p><i class="fas fa-info-circle"></i> Pastikan nama penerima sudah benar sebelum transfer</p>
-    </div>
-    
-    <!-- GoPay -->
-    <div class="payment-method gopay">
-        <h3 class="payment-title">
-            <img src="https://files.catbox.moe/md8imm.png" alt="GoPay" class="payment-logo">
-            GoPay
-        </h3>
-        <p>Transfer ke nomor GoPay berikut:</p>
-        <div class="payment-number-container">
-            <span class="payment-number" id="gopay-number">085609092154</span>
-            <button class="copy-btn" onclick="salinNomor('gopay-number')">
-                <i class="far fa-copy"></i> Salin
-            </button>
-        </div>
-    </div>
-    
-    <!-- OVO -->
-    <div class="payment-method ovo">
-        <h3 class="payment-title">
-            <img src="https://files.catbox.moe/l8dejq.jpg" alt="OVO" class="payment-logo">
-            OVO
-        </h3>
-        <p>Transfer ke nomor OVO berikut:</p>
-        <div class="payment-number-container">
-            <span class="payment-number" id="ovo-number">085609092154</span>
-            <button class="copy-btn" onclick="salinNomor('ovo-number')">
-                <i class="far fa-copy"></i> Salin
-            </button>
-        </div>
-    </div>
-    
-    <!-- QRIS -->
-    <div class="payment-method qris">
-        <h3 class="payment-title">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" alt="QRIS" class="payment-logo">
-            QRIS
-        </h3>
-        <p>Scan kode QR berikut untuk pembayaran:</p>
-        <div class="qris-container">
-            <img src="https://files.catbox.moe/2183im.jpg" alt="Kode QR Pembayaran" class="qris-image">
-        </div>
-        <button class="copy-btn" onclick="bukaGambarQRIS()" style="width: 100%;">
-            <i class="fas fa-external-link-alt"></i> Buka Gambar QR
+    <!-- Bagian Sambutan -->
+    <div class="welcome-section">
+        <h1><i class="fas fa-hand-holding-heart"></i> Selamat Datang</h1>
+        <p>Terima kasih telah memilih layanan kami. Silakan mulai pembayaran Anda dengan mudah dan aman.</p>
+        <button class="start-payment-btn" onclick="showPaymentSection()">
+            <i class="fas fa-credit-card"></i> Mulai Pembayaran
         </button>
     </div>
+    
+    <!-- Bagian Pembayaran (Awalnya Disembunyikan) -->
+    <div class="payment-section" id="paymentSection">
+        <!-- DANA -->
+        <div class="payment-method dana">
+            <h3 class="payment-title">
+                <img src="https://files.catbox.moe/gdna19.jpeg" alt="DANA" class="payment-logo">
+                DANA
+            </h3>
+            <p>Transfer ke nomor DANA berikut:</p>
+            <div class="payment-number-container">
+                <span class="payment-number" id="dana-number">085609092154</span>
+                <button class="copy-btn" onclick="salinNomor('dana-number')">
+                    <i class="far fa-copy"></i> Salin
+                </button>
+            </div>
+            <p><i class="fas fa-info-circle"></i> Pastikan nama penerima sudah benar sebelum transfer</p>
+        </div>
+        
+        <!-- GoPay -->
+        <div class="payment-method gopay">
+            <h3 class="payment-title">
+                <img src="https://files.catbox.moe/md8imm.png" alt="GoPay" class="payment-logo">
+                GoPay
+            </h3>
+            <p>Transfer ke nomor GoPay berikut:</p>
+            <div class="payment-number-container">
+                <span class="payment-number" id="gopay-number">085609092154</span>
+                <button class="copy-btn" onclick="salinNomor('gopay-number')">
+                    <i class="far fa-copy"></i> Salin
+                </button>
+            </div>
+        </div>
+        
+        <!-- OVO -->
+        <div class="payment-method ovo">
+            <h3 class="payment-title">
+                <img src="https://files.catbox.moe/l8dejq.jpg" alt="OVO" class="payment-logo">
+                OVO
+            </h3>
+            <p>Transfer ke nomor OVO berikut:</p>
+            <div class="payment-number-container">
+                <span class="payment-number" id="ovo-number">085609092154</span>
+                <button class="copy-btn" onclick="salinNomor('ovo-number')">
+                    <i class="far fa-copy"></i> Salin
+                </button>
+            </div>
+        </div>
+        
+        <!-- QRIS -->
+        <div class="payment-method qris">
+            <h3 class="payment-title">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" alt="QRIS" class="payment-logo">
+                QRIS
+            </h3>
+            <p>Scan kode QR berikut untuk pembayaran:</p>
+            <div class="qris-container">
+                <img src="https://files.catbox.moe/2183im.jpg" alt="Kode QR Pembayaran" class="qris-image">
+            </div>
+            <button class="copy-btn" onclick="bukaGambarQRIS()" style="width: 100%;">
+                <i class="fas fa-external-link-alt"></i> Buka Gambar QR
+            </button>
+        </div>
 
-    <div class="footer">
-        <p>Setelah melakukan pembayaran, harap konfirmasi dengan mengirim bukti transfer</p>
-        <p><i class="fas fa-phone"></i> Hubungi kami jika membutuhkan bantuan</p>
+        <div class="footer">
+            <p>Setelah melakukan pembayaran, harap konfirmasi dengan mengirim bukti transfer</p>
+            <p><i class="fas fa-phone"></i> Hubungi kami jika membutuhkan bantuan</p>
+        </div>
     </div>
 
     <script>
+        function showPaymentSection() {
+            document.getElementById('paymentSection').style.display = 'block';
+            window.scrollTo({
+                top: document.getElementById('paymentSection').offsetTop - 20,
+                behavior: 'smooth'
+            });
+        }
+        
         function salinNomor(idElement) {
             const element = document.getElementById(idElement);
             const teks = element.innerText;
             
-            // Buat elemen textarea sementara
             const textarea = document.createElement('textarea');
             textarea.value = teks;
             textarea.style.position = 'fixed';
@@ -244,16 +283,13 @@
             textarea.select();
             
             try {
-                // Jalankan perintah salin
                 const berhasil = document.execCommand('copy');
                 if(berhasil) {
-                    // Ubah tampilan tombol sementara
                     const tombol = event.currentTarget;
                     const teksAsli = tombol.innerHTML;
                     tombol.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
                     tombol.style.backgroundColor = '#4CAF50';
                     
-                    // Kembalikan setelah 2 detik
                     setTimeout(() => {
                         tombol.innerHTML = teksAsli;
                         tombol.style.backgroundColor = '';
@@ -263,7 +299,6 @@
                 console.error('Gagal menyalin: ', err);
             }
             
-            // Hapus textarea
             document.body.removeChild(textarea);
         }
         
